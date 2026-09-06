@@ -1,0 +1,13 @@
+node_modules/
+.env
+.env.*
+!.env.example
+
+.DS_Store
+
+.claude/settings.local.json
+
+src/config/google/serviceAccount.json
+*.pem
+*.p12
+credentials.json
