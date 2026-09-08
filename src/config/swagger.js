@@ -12,11 +12,15 @@ const swaggerDefinition = {
     },
   },
   servers: [
-    {
-      url: "http://localhost:4784",
-      description: "Local development",
-    },
-  ],
+  {
+    url: "http://localhost:4784",
+    description: "Local development",
+  },
+  {
+    url: "https://mcf-e-library-backend.onrender.com",
+    description: "Production",
+  },
+],
   tags: [
     { name: "Health", description: "Service status" },
     { name: "Auth", description: "Signup, login, and email verification" },
