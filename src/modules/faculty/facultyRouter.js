@@ -121,20 +121,20 @@ router.delete("/faculty/:id", authenticate, DeleteFaculty);
 
 /**
  * @swagger
- * /faculty/{id}/materials:
+ * /faculty/{name}/materials:
  *   get:
  *     tags: [Faculties]
  *     summary: List learning materials for a faculty
- *     description: Looks up the faculty in MongoDB, then lists files in its Google Drive folder.
+ *     description: Looks up the faculty by name in MongoDB, then lists files in its Google Drive folder.
  *     security:
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: name
  *         required: true
  *         schema:
  *           type: string
- *         description: Faculty MongoDB ID
+ *         description: Faculty name
  *     responses:
  *       200:
  *         description: Materials from Google Drive.
@@ -145,6 +145,6 @@ router.delete("/faculty/:id", authenticate, DeleteFaculty);
  *       500:
  *         description: Google Drive request failed.
  */
-router.get("/faculty/:id/materials", authenticate, GetFacultyMaterials);
+router.get("/faculty/:name/materials", authenticate, GetFacultyMaterials);
 
 module.exports = router;

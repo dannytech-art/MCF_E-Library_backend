@@ -137,9 +137,9 @@ exports.DeleteFaculty = async (req, res) => {
 
 exports.GetFacultyMaterials = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { name } = req.params;
 
-    const faculty = await facultyModel.findById(id);
+    const faculty = await facultyModel.findOne({ name });
 
     if (!faculty) {
       return res.status(404).json({
@@ -163,3 +163,4 @@ exports.GetFacultyMaterials = async (req, res) => {
     });
   }
 };
+
