@@ -13,13 +13,13 @@ const swaggerDefinition = {
   },
   servers: [
   {
-    url: "http://localhost:4784",
-    description: "Local development",
-  },
-  {
     url: "https://mcf-e-library-backend.onrender.com",
     description: "Production",
   },
+  {
+    url: "http://localhost:4784",
+    description: "Local development",
+  }
 ],
   tags: [
     { name: "Health", description: "Service status" },
