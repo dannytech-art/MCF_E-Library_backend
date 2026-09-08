@@ -3,8 +3,16 @@ require('dotenv').config();
 const express = require('express');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./config/swagger');
+const cors = require('cors');
 
 const app = express();
+
+// CORS
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 app.use(express.json());
 

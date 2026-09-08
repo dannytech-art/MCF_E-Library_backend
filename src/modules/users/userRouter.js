@@ -1,6 +1,15 @@
 const express = require('express');
 const router = express.Router();
+
 const { authenticate } = require('../../middleware/authMiddleware');
+
+const {
+    validate,
+    signupSchema,
+    loginSchema,
+    changePasswordSchema
+} = require('../../middleware/joiMiddleware');
+
 const {
     Signup,
     VerifyOtp,
@@ -13,6 +22,7 @@ const {
     ChangePassword,
     DeleteUser
 } = require('./userController');
+
 
 /**
  * @swagger
@@ -35,7 +45,8 @@ const {
  *       500:
  *         description: Server or email error.
  */
-router.post('/signup', Signup);
+router.post('/signup', validate(signupSchema), Signup);
+
 
 /**
  * @swagger
@@ -59,6 +70,7 @@ router.post('/signup', Signup);
  */
 router.post('/verify-otp', VerifyOtp);
 
+
 /**
  * @swagger
  * /resend-otp:
@@ -81,6 +93,7 @@ router.post('/verify-otp', VerifyOtp);
  */
 router.post('/resend-otp', ResendOtp);
 
+
 /**
  * @swagger
  * /login:
@@ -101,7 +114,8 @@ router.post('/resend-otp', ResendOtp);
  *       404:
  *         description: User not found.
  */
-router.post('/login', Login);
+router.post('/login', validate(loginSchema), Login);
+
 
 /**
  * @swagger
@@ -119,6 +133,7 @@ router.post('/login', Login);
  */
 router.get('/profile', authenticate, GetProfile);
 
+
 /**
  * @swagger
  * /users:
@@ -134,6 +149,7 @@ router.get('/profile', authenticate, GetProfile);
  *         description: Missing or invalid token.
  */
 router.get('/users', authenticate, GetAllUsers);
+
 
 /**
  * @swagger
@@ -156,6 +172,7 @@ router.get('/users', authenticate, GetAllUsers);
  *         description: Missing or invalid token.
  *       404:
  *         description: User not found.
+ *
  *   put:
  *     tags: [Users]
  *     summary: Update own profile
@@ -185,6 +202,7 @@ router.get('/users', authenticate, GetAllUsers);
  *         description: Attempted to update another user.
  *       404:
  *         description: User not found.
+ *
  *   delete:
  *     tags: [Users]
  *     summary: Delete own account
@@ -207,8 +225,15 @@ router.get('/users', authenticate, GetAllUsers);
  *         description: User not found.
  */
 router.get('/user/:id', authenticate, GetUserById);
-router.put('/user/:id', authenticate, UpdateUser);
+
+router.put(
+    '/user/:id',
+    authenticate,
+    UpdateUser
+);
+
 router.delete('/user/:id', authenticate, DeleteUser);
+
 
 /**
  * @swagger
@@ -232,6 +257,13 @@ router.delete('/user/:id', authenticate, DeleteUser);
  *       401:
  *         description: Missing or invalid token.
  */
-router.put('/change-password', authenticate, ChangePassword);
+router.put(
+    '/change-password',
+    authenticate,
+    validate(changePasswordSchema),
+    ChangePassword
+);
+
 
 module.exports = router;
+
